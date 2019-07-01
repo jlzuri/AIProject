@@ -1,48 +1,47 @@
 #include "App.h"
 #include "ServiceLocator.h"
 
-namespace AIProject
-{
+namespace AIProject {
 
 //----------------------------------------------------------------------------------------------------------------------
-bool App::Initialize()
-{
+bool App::Initialize() {
 	mSDLService = std::make_unique<SDLService>();
-    mInputService = std::make_unique<InputService>();
-    mAgentsManager = std::make_unique<AgentsManager>();
+	mInputService = std::make_unique<InputService>();
+	mAgentsManager = std::make_unique<AgentsManager>();
+	mDebugRenderer = std::make_unique<DebugRenderer>();
 
 	ServiceLocator::AddService(mSDLService.get(), ServiceType::SDLService);
 	ServiceLocator::AddService(mInputService.get(), ServiceType::InputService);
 	ServiceLocator::AddService(mAgentsManager.get(), ServiceType::AgentsManager);
+	ServiceLocator::AddService(mDebugRenderer.get(), ServiceType::DebugRenderer);
 
-	if(!mSDLService->Initialize()) return false;
-	if(!mInputService->Initialize()) return false;
-	if(!mAgentsManager->Initialize()) return false;
-
+	if (!mSDLService->Initialize()) return false;
+	if (!mInputService->Initialize()) return false;
+	if (!mAgentsManager->Initialize()) return false;
+	if (!mDebugRenderer->Initialize()) return false;
 
 	return true;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void App::Update()
-{
+void App::Update() {
 	mInputService->Update();
 	mAgentsManager->Update();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void App::Render()
-{
+void App::Render() {
 	mSDLService->BeforeRender();
 
 	mAgentsManager->Render(mSDLService->GetRenderer());
+	mDebugRenderer->Render(mSDLService->GetRenderer());
 
 	mSDLService->AfterRender();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void App::Shutdown()
-{
+void App::Shutdown() {
+	ServiceLocator::RemoveService(ServiceType::DebugRenderer);
 	ServiceLocator::RemoveService(ServiceType::AgentsManager);
 	ServiceLocator::RemoveService(ServiceType::InputService);
 	ServiceLocator::RemoveService(ServiceType::SDLService);
@@ -50,28 +49,25 @@ void App::Shutdown()
 
 //----------------------------------------------------------------------------------------------------------------------
 void App::OnEvent(SDL_Event *event) {
-	switch(event->type)
-	{
-	case SDL_QUIT: {
-		OnExit();
-		break;
-	}
-	default:
-		mInputService->ProcessInputEvent(event);
-		break;
+	switch (event->type) {
+		case SDL_QUIT: {
+			OnExit();
+			break;
+		}
+		default:
+			mInputService->ProcessInputEvent(event);
+			break;
 	}
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void App::OnExit()
-{
-    mRunning = false;
+void App::OnExit() {
+	mRunning = false;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-bool App::IsRunning()
-{
-    return mRunning;
+bool App::IsRunning() {
+	return mRunning;
 }
 
 }

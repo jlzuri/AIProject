@@ -3,15 +3,14 @@
 
 #include "AgentBehaviour.h"
 
-namespace AIProject
-{
+namespace AIProject {
 
 class AgentBehaviourSeek : public AgentBehaviour {
 public:
 	virtual AgentBehaviourType BehaviourType() const override { return AgentBehaviourType::Seek; }
 
 	virtual Vector2 Execute(Agent *agent) override;
-	virtual void Render(SDL_Renderer * renderer) override;
+
 	void SetTarget(const Vector2 &target) { mTarget = target; }
 
 private:

@@ -7,16 +7,18 @@
 
 class SDL_Renderer;
 
-namespace AIProject
-{
+namespace AIProject {
 
 class Path {
 public:
-	Path(float radius, std::vector<Vector2>&& points);
-	void Render(SDL_Renderer * renderer);
+	Path(float radius, std::vector<Vector2> &&points);
 
-	void AddPoint(const Vector2& point) { mPoints.emplace_back(point); }
-	const std::vector<Vector2>& GetPoints() const { return mPoints; }
+	void Render(SDL_Renderer *renderer);
+
+	void AddPoint(const Vector2 &point) { mPoints.emplace_back(point); }
+
+	const std::vector<Vector2> &GetPoints() const { return mPoints; }
+
 	float GetRadius() const { return mRadius; }
 
 private:

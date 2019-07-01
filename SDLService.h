@@ -12,19 +12,24 @@ namespace AIProject {
 class SDLService : public IService {
 public:
 	bool Initialize();
+
 	void Update() {};
+
 	void Shutdown();
 
 	void BeforeRender();
+
 	void AfterRender();
 
-	SDL_Window * GetWindow() { return mWindow; }
-	SDL_Renderer * GetRenderer() { return mRenderer; }
+	SDL_Window *GetWindow() { return mWindow; }
+
+	SDL_Renderer *GetRenderer() { return mRenderer; }
 
 	std::tuple<int, int> GetWindowSize() const;
+
 private:
-	SDL_Window * mWindow = nullptr;
-	SDL_Renderer * mRenderer = nullptr;
+	SDL_Window *mWindow = nullptr;
+	SDL_Renderer *mRenderer = nullptr;
 };
 
 }

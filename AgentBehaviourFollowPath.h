@@ -3,18 +3,19 @@
 
 #include "AgentBehaviourSeek.h"
 
-namespace AIProject
-{
+namespace AIProject {
 
 class Path;
 
 class AgentBehaviourFollowPath : public AgentBehaviourSeek {
 public:
 	virtual AgentBehaviourType BehaviourType() const override { return AgentBehaviourType::FollowPath; }
+
 	virtual Vector2 Execute(Agent *agent) override;
-	void SetPath(Path * path) { mPath = path; };
+
+	void SetPath(Path *path) { mPath = path; };
 private:
-	Path* mPath;
+	Path *mPath;
 };
 
 }

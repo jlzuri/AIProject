@@ -9,18 +9,15 @@
 #include "AgentBehaviourFollowPath.h"
 #include <SDL2_gfxPrimitives.h>
 
-namespace AIProject
-{
+namespace AIProject {
 
 //----------------------------------------------------------------------------------------------------------------------
-Agent::Agent(AgentBehaviourType behaviour, const Vector2& position) :
+Agent::Agent(AgentBehaviourType behaviour, const Vector2 &position) :
 	mPosition(position),
 	mVelocity(),
 	mAcceleration(),
-	mBehaviour(nullptr)
-{
-	switch(behaviour)
-	{
+	mBehaviour(nullptr) {
+	switch (behaviour) {
 		case AgentBehaviourType::Seek:
 			mBehaviour = std::make_unique<AgentBehaviourSeek>();
 			break;
@@ -36,14 +33,12 @@ Agent::Agent(AgentBehaviourType behaviour, const Vector2& position) :
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Agent::Update()
-{
+void Agent::Update() {
 	mAcceleration = mBehaviour->Execute(this);
 
 	mVelocity += mAcceleration;
 
-	if(mVelocity.LengthSqr() > mMaxSpeed * mMaxSpeed)
-	{
+	if (mVelocity.LengthSqr() > mMaxSpeed * mMaxSpeed) {
 		mVelocity.Normalize();
 		mVelocity *= mMaxSpeed;
 	}
@@ -56,12 +51,9 @@ void Agent::Update()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Agent::Render(SDL_Renderer * renderer)
-{
-//	mBehaviour->Render(renderer);
-
-	Vector2 point1 = mPosition + Vector2(0, - mRadius);
-	Vector2 point2 = mPosition + Vector2(- mRadius, mRadius);
+void Agent::Render(SDL_Renderer *renderer) {
+	Vector2 point1 = mPosition + Vector2(0, -mRadius);
+	Vector2 point2 = mPosition + Vector2(-mRadius, mRadius);
 	Vector2 point3 = mPosition + Vector2(mRadius, mRadius);
 
 	//rotate points
@@ -80,19 +72,19 @@ void Agent::Render(SDL_Renderer * renderer)
 
 //----------------------------------------------------------------------------------------------------------------------
 void Agent::WrapAround() {
-	auto sdlService = (SDLService *)ServiceLocator::GetService(ServiceType::SDLService);
-	auto [width, height] = sdlService->GetWindowSize();
+	auto sdlService = (SDLService *) ServiceLocator::GetService(ServiceType::SDLService);
+	auto[width, height] = sdlService->GetWindowSize();
 
-	if(mPosition.x < -mRadius) {
+	if (mPosition.x < -mRadius) {
 		mPosition.x = width + mRadius;
 	}
-	if(mPosition.y < -mRadius) {
+	if (mPosition.y < -mRadius) {
 		mPosition.y = height + mRadius;
 	}
-	if(mPosition.x > width + mRadius) {
+	if (mPosition.x > width + mRadius) {
 		mPosition.x = -mRadius;
 	}
-	if(mPosition.y > height + mRadius) {
+	if (mPosition.y > height + mRadius) {
 		mPosition.y = -mRadius;
 	}
 }

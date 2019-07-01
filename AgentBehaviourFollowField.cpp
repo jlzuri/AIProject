@@ -3,13 +3,11 @@
 #include "FlowField.h"
 #include "Agent.h"
 
-namespace AIProject
-{
+namespace AIProject {
 
 //----------------------------------------------------------------------------------------------------------------------
 Vector2 AgentBehaviourFollowField::Execute(Agent *agent) {
-	if(mFlowField == nullptr)
-	{
+	if (mFlowField == nullptr) {
 		return Vector2();
 	}
 
@@ -21,8 +19,7 @@ Vector2 AgentBehaviourFollowField::Execute(Agent *agent) {
 	desired *= maxForce;
 
 	Vector2 steeringForce = desired - velocity;
-	if(steeringForce.LengthSqr() > maxForce * maxForce)
-	{
+	if (steeringForce.LengthSqr() > maxForce * maxForce) {
 		steeringForce.Normalize();
 		steeringForce *= maxForce;
 	}

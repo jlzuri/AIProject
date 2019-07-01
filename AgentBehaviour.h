@@ -3,8 +3,7 @@
 
 class SDL_Renderer;
 
-namespace AIProject
-{
+namespace AIProject {
 
 class Agent;
 
@@ -23,7 +22,6 @@ public:
 	virtual ~AgentBehaviour() {}
 
 	virtual Vector2 Execute(Agent *agent) = 0;
-	virtual void Render(SDL_Renderer * renderer) {};
 };
 
 }

@@ -3,8 +3,7 @@
 
 #include "AgentBehaviour.h"
 
-namespace AIProject
-{
+namespace AIProject {
 
 class FlowField;
 
@@ -13,9 +12,10 @@ public:
 	virtual AgentBehaviourType BehaviourType() const override { return AgentBehaviourType::FollowField; }
 
 	virtual Vector2 Execute(Agent *agent) override;
-	void SetFlowField(FlowField* flowField) { mFlowField = flowField; };
+
+	void SetFlowField(FlowField *flowField) { mFlowField = flowField; };
 private:
-	FlowField* mFlowField;
+	FlowField *mFlowField;
 };
 
 }

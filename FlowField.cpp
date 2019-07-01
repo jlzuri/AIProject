@@ -6,8 +6,7 @@
 #include "PerlinNoise.h"
 #include <SDL2/SDL2_gfxPrimitives.h>
 
-namespace AIProject
-{
+namespace AIProject {
 
 //----------------------------------------------------------------------------------------------------------------------
 FlowField::FlowField(int width, int height, int resolution) : mResolution(resolution) {
@@ -17,10 +16,10 @@ FlowField::FlowField(int width, int height, int resolution) : mResolution(resolu
 
 	PerlinNoise perlin(0);
 	float yOffset = 0;
-	for(int row = 0; row < mRows; ++row) {
+	for (int row = 0; row < mRows; ++row) {
 		float xOffset = 0;
-		for(int col = 0; col < mColumns; ++col) {
-			float angle = MathUtils::Map(perlin.noise(xOffset, yOffset, 0), 0, 1, 0,MathUtils::TwoPi);
+		for (int col = 0; col < mColumns; ++col) {
+			float angle = MathUtils::Map(perlin.noise(xOffset, yOffset, 0), 0, 1, 0, MathUtils::TwoPi);
 			mField[row * mColumns + col] = {cos(angle), sin(angle)};
 			xOffset += 0.1f;
 		}
@@ -31,8 +30,8 @@ FlowField::FlowField(int width, int height, int resolution) : mResolution(resolu
 
 //----------------------------------------------------------------------------------------------------------------------
 void FlowField::Render(SDL_Renderer *renderer) {
-	for(int row = 0; row < mRows; ++row) {
-		for(int col = 0; col < mColumns; ++col) {
+	for (int row = 0; row < mRows; ++row) {
+		for (int col = 0; col < mColumns; ++col) {
 			Vector2 fieldEntry = mField[row * mColumns + col];
 			Vector2 point1 = {static_cast<float>(col * mResolution), static_cast<float>(row * mResolution)};
 			Vector2 point2 = point1 + fieldEntry * mResolution;
@@ -45,10 +44,11 @@ void FlowField::Render(SDL_Renderer *renderer) {
 		}
 	}
 }
+
 //----------------------------------------------------------------------------------------------------------------------
-const Vector2& FlowField::GetElement(Vector2 position) const {
-	int column = std::clamp((int)position.x / mResolution, 0, mColumns - 1);
-	int row = std::clamp((int)position.y / mResolution, 0, mRows - 1);
+const Vector2 &FlowField::GetElement(Vector2 position) const {
+	int column = std::clamp((int) position.x / mResolution, 0, mColumns - 1);
+	int row = std::clamp((int) position.y / mResolution, 0, mRows - 1);
 	return mField[row * mColumns + column];
 }
 

@@ -2,12 +2,11 @@
 #include <SDL.h>
 #include <memory>
 
-namespace AIProject
-{
+namespace AIProject {
 
 //----------------------------------------------------------------------------------------------------------------------
 bool SDLService::Initialize() {
-	if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		return false;
 	}
 
@@ -29,7 +28,7 @@ bool SDLService::Initialize() {
 	// We must call SDL_CreateRenderer in order for draw calls to affect this window.
 	mRenderer = SDL_CreateRenderer(mWindow, -1, 0);
 
-	if(mRenderer == nullptr) {
+	if (mRenderer == nullptr) {
 		// In the case that the window could not be made...
 		printf("Could not create renderer: %s\n", SDL_GetError());
 		return false;

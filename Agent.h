@@ -7,28 +7,34 @@
 
 struct SDL_Renderer;
 
-namespace AIProject
-{
+namespace AIProject {
 
 class FlowField;
 
 class Agent {
 public:
-	Agent(AgentBehaviourType behaviour, const Vector2& position);
+	Agent(AgentBehaviourType behaviour, const Vector2 &position);
 
 	virtual void Update();
-	void Render(SDL_Renderer * renderer);
+
+	void Render(SDL_Renderer *renderer);
 
 	float GetRadius() const { return mRadius; }
+
 	float GetMaxForce() const { return mMaxForce; }
+
 	float GetMaxSpeed() const { return mMaxSpeed; }
 
-	const Vector2& GetPosition() const { return mPosition; }
-	const Vector2& GetVelocity() const { return mVelocity; }
-	const Vector2& GetAcceleration() const { return mAcceleration; }
+	const Vector2 &GetPosition() const { return mPosition; }
 
-	const AgentBehaviour* GetBehaviour() const { return mBehaviour.get(); }
-	AgentBehaviour* GetBehaviour() { return mBehaviour.get(); }
+	const Vector2 &GetVelocity() const { return mVelocity; }
+
+	const Vector2 &GetAcceleration() const { return mAcceleration; }
+
+	const AgentBehaviour *GetBehaviour() const { return mBehaviour.get(); }
+
+	AgentBehaviour *GetBehaviour() { return mBehaviour.get(); }
+
 private:
 	void WrapAround();
 

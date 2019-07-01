@@ -109,7 +109,7 @@ add_executable(Game
         AgentbehaviourSeek.cpp
         AgentBehaviourFollowField.h
         AgentBehaviourFollowField.cpp
-        AgentBehaviourFollowPath.h include/Vector2.cpp AgentBehaviourFollowPath.cpp Path.cpp)
+        AgentBehaviourFollowPath.h include/Vector2.cpp AgentBehaviourFollowPath.cpp Path.cpp DebugRenderer.cpp DebugRenderer.h Primitive.h CirclePrimitive.h LinePrimitive.h)
 
 
 target_link_libraries(Game ${CMAKE_SOURCE_DIR}/lib/libSDL2-2.0.0.dylib)

@@ -4,25 +4,25 @@ using namespace AIProject;
 
 int main() {
 
-    App game;
+	App game;
 
-    if(!game.Initialize()) {
-        return -1;
-    }
+	if (!game.Initialize()) {
+		return -1;
+	}
 
-    SDL_Event event;
+	SDL_Event event;
 
-    while(game.IsRunning()) {
-        while(SDL_PollEvent(&event)) {
-    	    game.OnEvent(&event);
-        }
+	while (game.IsRunning()) {
+		while (SDL_PollEvent(&event)) {
+			game.OnEvent(&event);
+		}
 
-    	game.Update();
-    	game.Render();
-    }
+		game.Update();
+		game.Render();
+	}
 
-    game.Shutdown();
+	game.Shutdown();
 
-    return 0;
+	return 0;
 
 }

@@ -3,14 +3,13 @@
 #include "Path.h"
 #include "Agent.h"
 #include "MathUtils.h"
+#include "DebugRenderer.h"
 
-namespace AIProject
-{
+namespace AIProject {
 
 //----------------------------------------------------------------------------------------------------------------------
 Vector2 AgentBehaviourFollowPath::Execute(Agent *agent) {
-	if(mPath == nullptr)
-	{
+	if (mPath == nullptr) {
 		return Vector2();
 	}
 
@@ -24,15 +23,14 @@ Vector2 AgentBehaviourFollowPath::Execute(Agent *agent) {
 
 	auto pathRadius = mPath->GetRadius();
 	auto pathPoints = mPath->GetPoints();
-	for(int i = 0, j = i + 1; j < pathPoints.size(); ++i, ++j) {
+	for (int i = 0, j = i + 1; j < pathPoints.size(); ++i, ++j) {
 		auto segmentStart = pathPoints[i];
 		auto segmentEnd = pathPoints[j];
 
 		auto closestPoint = MathUtils::ClosestPointOnSegment(futurePos, segmentStart, segmentEnd);
 		auto distanceSqr = Vector2::DistanceSquared(futurePos, closestPoint);
 
-		if(distanceSqr < distanceSqrToPath)
-		{
+		if (distanceSqr < distanceSqrToPath) {
 			distanceSqrToPath = distanceSqr;
 			closestPointToPath = closestPoint;
 
@@ -41,8 +39,13 @@ Vector2 AgentBehaviourFollowPath::Execute(Agent *agent) {
 		}
 	}
 
-	return AgentBehaviourSeek::Execute(agent);
+//	auto debugRenderer = (DebugRenderer *)ServiceLocator::GetService(ServiceType::DebugRenderer);
+//	debugRenderer->DrawCircle(futurePos, 2, Color::Red);
+//	debugRenderer->DrawLine(position, futurePos, Color::Red);
+//	debugRenderer->DrawCircle(closestPointToPath, 2, Color::Blue);
+//	debugRenderer->DrawLine(futurePos, closestPointToPath, Color::Blue);
 
+	return AgentBehaviourSeek::Execute(agent);
 }
 
 }

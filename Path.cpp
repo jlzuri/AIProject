@@ -1,19 +1,17 @@
 #include "Path.h"
 #include <SDL2_gfxPrimitives.h>
 
-namespace AIProject
-{
+namespace AIProject {
 
 //----------------------------------------------------------------------------------------------------------------------
-Path::Path(float radius, std::vector<Vector2>&& points) :
+Path::Path(float radius, std::vector<Vector2> &&points) :
 	mPoints(std::move(points)),
-	mRadius(radius)
-{
+	mRadius(radius) {
 
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-void Path::Render(SDL_Renderer * renderer) {
+void Path::Render(SDL_Renderer *renderer) {
 	for (int i = 0; i < mPoints.size(); ++i) {
 		filledCircleRGBA(
 			renderer,

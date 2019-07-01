@@ -3,26 +3,26 @@
 
 #include <array>
 
-namespace AIProject
-{
+namespace AIProject {
 
 class IService;
 
-enum class ServiceType
-{
+enum class ServiceType {
 	SDLService,
 	InputService,
 	AgentsManager,
 	FlowFieldManager,
+	DebugRenderer,
 	Count,
 	Invalid
 };
 
-class ServiceLocator
-{
+class ServiceLocator {
 public:
-	static IService* GetService(ServiceType serviceType);
-	static bool AddService(IService* service, ServiceType serviceType);
+	static IService *GetService(ServiceType serviceType);
+
+	static bool AddService(IService *service, ServiceType serviceType);
+
 	static bool RemoveService(ServiceType serviceType);
 
 private:
@@ -30,7 +30,7 @@ private:
 
 private:
 	static ServiceLocator sInstance;
-	std::array<IService*, (int)ServiceType::Count> sServices;
+	std::array<IService *, (int) ServiceType::Count> sServices;
 };
 
 }

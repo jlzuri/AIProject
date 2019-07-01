@@ -8,8 +8,7 @@
 #include "FlowField.h"
 #include "Path.h"
 
-namespace AIProject
-{
+namespace AIProject {
 
 class AgentsManager : public IService, InputListener {
 public:

@@ -1,8 +1,7 @@
 #include "MathUtils.h"
 
 //----------------------------------------------------------------------------------------------------------------------
-Vector2 MathUtils::Rotate(const Vector2& point, const Vector2& center, float angle)
-{
+Vector2 MathUtils::Rotate(const Vector2 &point, const Vector2 &center, float angle) {
 	float s = sin(angle);
 	float c = cos(angle);
 	Vector2 diff = point - center;
@@ -14,14 +13,12 @@ Vector2 MathUtils::Rotate(const Vector2& point, const Vector2& center, float ang
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-float MathUtils::Map(float a, float min, float max, float newMin, float newMax)
-{
-	return (((newMax - newMin) * (a - min)) / (max  - min)) + a;
+float MathUtils::Map(float a, float min, float max, float newMin, float newMax) {
+	return (((newMax - newMin) * (a - min)) / (max - min)) + a;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Vector2 MathUtils::ClosestPointOnLine(const Vector2& point, const Vector2& lineOrig, const Vector2& lineDir)
-{
+Vector2 MathUtils::ClosestPointOnLine(const Vector2 &point, const Vector2 &lineOrig, const Vector2 &lineDir) {
 	Vector2 w = point - lineOrig;
 	float vsq = Vector2::Dot(lineDir, lineDir);
 	float proj = Vector2::Dot(w, lineDir);
@@ -30,8 +27,7 @@ Vector2 MathUtils::ClosestPointOnLine(const Vector2& point, const Vector2& lineO
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-float MathUtils::DistanceToLineSquared(const Vector2& point, const Vector2& lineOrig, const Vector2& lineDir)
-{
+float MathUtils::DistanceToLineSquared(const Vector2 &point, const Vector2 &lineOrig, const Vector2 &lineDir) {
 	Vector2 w = point - lineOrig;
 	float vsq = Vector2::Dot(lineDir, lineDir);
 	float wsq = Vector2::Dot(w, w);
@@ -41,13 +37,11 @@ float MathUtils::DistanceToLineSquared(const Vector2& point, const Vector2& line
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-Vector2 MathUtils::ClosestPointOnSegment(const Vector2& point, const Vector2& segmentStart, const Vector2& segmentEnd)
-{
+Vector2 MathUtils::ClosestPointOnSegment(const Vector2 &point, const Vector2 &segmentStart, const Vector2 &segmentEnd) {
 	Vector2 w = point - segmentStart;
 	Vector2 segmentDir = segmentEnd - segmentStart; //Note: Do not normalize
 	float proj = Vector2::Dot(w, segmentDir);
-	if(proj <= 0)
-	{
+	if (proj <= 0) {
 		return segmentStart;
 	}
 
@@ -57,17 +51,16 @@ Vector2 MathUtils::ClosestPointOnSegment(const Vector2& point, const Vector2& se
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-float MathUtils::DistanceToSegmentSquared(const Vector2& point, const Vector2& segmentStart, const Vector2& segmentEnd)
-{
+float
+MathUtils::DistanceToSegmentSquared(const Vector2 &point, const Vector2 &segmentStart, const Vector2 &segmentEnd) {
 	Vector2 w = point - segmentStart;
 	Vector2 segmentDir = segmentEnd - segmentStart; //Note: Do not normalize
 	float proj = Vector2::Dot(w, segmentDir);
 	float wsq = Vector2::Dot(w, w);
-	if(proj <= 0)
-	{
+	if (proj <= 0) {
 		return wsq;
 	}
 
 	float vsq = Vector2::Dot(segmentDir, segmentDir);
-	return (proj >= vsq) ? wsq -  2.f * proj + vsq : wsq - proj * proj / vsq;
+	return (proj >= vsq) ? wsq - 2.f * proj + vsq : wsq - proj * proj / vsq;
 }

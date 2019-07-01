@@ -5,16 +5,16 @@
 #include <Vector2.h>
 #include "IService.h"
 
-namespace AIProject
-{
+namespace AIProject {
 
 class FlowField {
 public:
 	explicit FlowField(int width, int height, int resolution);
 
-	void Render(SDL_Renderer* renderer);
+	void Render(SDL_Renderer *renderer);
 
-	const Vector2& GetElement(Vector2 position) const;
+	const Vector2 &GetElement(Vector2 position) const;
+
 private:
 	int mRows;
 	int mColumns;
@@ -24,7 +24,6 @@ private:
 };
 
 }
-
 
 
 #endif //GAME_FLOWFIELD_H
