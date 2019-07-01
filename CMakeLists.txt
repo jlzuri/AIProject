@@ -90,8 +90,8 @@ add_executable(Game
         App.cpp
         Agent.h
         Agent.cpp
-        FlowFieldManager.h
-        FlowFieldManager.cpp
+        FlowField.h
+        FlowField.cpp
         IService.h
         SDLService.h
         SDLService.cpp
@@ -103,7 +103,13 @@ add_executable(Game
         ServiceLocator.h
         ServiceLocator.cpp
         Main.cpp
-        Path.h)
+        Path.h
+        AgentBehaviour.h
+        AgentBehaviourSeek.h
+        AgentbehaviourSeek.cpp
+        AgentBehaviourFollowField.h
+        AgentBehaviourFollowField.cpp
+        AgentBehaviourFollowPath.h include/Vector2.cpp AgentBehaviourFollowPath.cpp Path.cpp)
 
 
 target_link_libraries(Game ${CMAKE_SOURCE_DIR}/lib/libSDL2-2.0.0.dylib)

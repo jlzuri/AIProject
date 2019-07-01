@@ -1,25 +1,16 @@
-#include "FlowFieldManager.h"
+#include "FlowField.h"
 #include "SDLService.h"
 #include "ServiceLocator.h"
 #include "Constants.h"
 #include "MathUtils.h"
 #include "PerlinNoise.h"
-#include <SDL.h>
-#include <algorithm>
 #include <SDL2/SDL2_gfxPrimitives.h>
 
 namespace AIProject
 {
 
 //----------------------------------------------------------------------------------------------------------------------
-FlowFieldManager::FlowFieldManager(int resolution) : mResolution(resolution) {
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-bool FlowFieldManager::Initialize() {
-	auto sdlService = (SDLService *)ServiceLocator::GetService(ServiceType::SDLService);
-	auto [width, height] = sdlService->GetWindowSize();
-
+FlowField::FlowField(int width, int height, int resolution) : mResolution(resolution) {
 	mRows = height / mResolution;
 	mColumns = width / mResolution;
 	mField.resize(mRows * mColumns);
@@ -35,11 +26,11 @@ bool FlowFieldManager::Initialize() {
 		}
 		yOffset += 0.1f;
 	}
-	return true;
 }
 
+
 //----------------------------------------------------------------------------------------------------------------------
-void FlowFieldManager::Render(SDL_Renderer *renderer) {
+void FlowField::Render(SDL_Renderer *renderer) {
 	for(int row = 0; row < mRows; ++row) {
 		for(int col = 0; col < mColumns; ++col) {
 			Vector2 fieldEntry = mField[row * mColumns + col];
@@ -55,7 +46,7 @@ void FlowFieldManager::Render(SDL_Renderer *renderer) {
 	}
 }
 //----------------------------------------------------------------------------------------------------------------------
-const Vector2& FlowFieldManager::GetElement(Vector2 position) const {
+const Vector2& FlowField::GetElement(Vector2 position) const {
 	int column = std::clamp((int)position.x / mResolution, 0, mColumns - 1);
 	int row = std::clamp((int)position.y / mResolution, 0, mRows - 1);
 	return mField[row * mColumns + column];

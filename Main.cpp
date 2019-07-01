@@ -1,5 +1,4 @@
 #include "App.h"
-#include <SDL2/SDL.h>
 
 using namespace AIProject;
 

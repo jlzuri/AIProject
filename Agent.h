@@ -1,35 +1,47 @@
 #ifndef GAME_AGENT_H
 #define GAME_AGENT_H
 
+#include <memory>
 #include <Vector2.h>
+#include "AgentBehaviour.h"
 
 struct SDL_Renderer;
 
 namespace AIProject
 {
+
+class FlowField;
+
 class Agent {
 public:
-	Agent(const Vector2& position);
+	Agent(AgentBehaviourType behaviour, const Vector2& position);
 
-	void Update();
+	virtual void Update();
 	void Render(SDL_Renderer * renderer);
 
-	void SetTarget(const Vector2& target);
+	float GetRadius() const { return mRadius; }
+	float GetMaxForce() const { return mMaxForce; }
+	float GetMaxSpeed() const { return mMaxSpeed; }
+
+	const Vector2& GetPosition() const { return mPosition; }
+	const Vector2& GetVelocity() const { return mVelocity; }
+	const Vector2& GetAcceleration() const { return mAcceleration; }
+
+	const AgentBehaviour* GetBehaviour() const { return mBehaviour.get(); }
+	AgentBehaviour* GetBehaviour() { return mBehaviour.get(); }
 private:
-	void Seek();
-	void Arrive();
-	void Follow();
 	void WrapAround();
 
 private:
-	static constexpr float mRadius = 6.f;
-	static constexpr float maxForce = 4.f;
-	static constexpr float maxSpeed = 0.1f;
+	const float mRadius = 6.f;
+	const float mMaxForce = .002f;
+	const float mMaxSpeed = .3f;
 
 	Vector2 mPosition;
 	Vector2 mVelocity;
 	Vector2 mAcceleration;
-	Vector2 mTarget;
+
+	std::unique_ptr<AgentBehaviour> mBehaviour;
 };
 
 }

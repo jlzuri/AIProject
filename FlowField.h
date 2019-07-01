@@ -8,21 +8,18 @@
 namespace AIProject
 {
 
-class FlowFieldManager : public IService {
+class FlowField {
 public:
-	explicit FlowFieldManager(int resolution);
+	explicit FlowField(int width, int height, int resolution);
 
-	bool Initialize();
-	void Update() {};
 	void Render(SDL_Renderer* renderer);
-	void Shutdown() {};
 
 	const Vector2& GetElement(Vector2 position) const;
 private:
-	std::vector<Vector2> mField;
 	int mRows;
 	int mColumns;
 	int mResolution;
+	std::vector<Vector2> mField;
 
 };
 

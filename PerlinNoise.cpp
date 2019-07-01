@@ -1,8 +1,6 @@
 #include "PerlinNoise.h"
 #include <cmath>
 #include <random>
-#include <algorithm>
-#include <numeric>
 
 //Source: https://github.com/sol-prog/Perlin_Noise
 
